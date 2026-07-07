@@ -16,6 +16,7 @@ Eight eval rounds, 159 agent runs, blind LLM judges that verify by diffing and e
 | Sonnet on the same trap | flags it, then sides with the wrong test | **ideal action, both runs (8/8)** | [round 3](eval/results/round3-v3-intent-gate-and-sonnet.json) |
 | Sonnet vs a bare frontier model across code, data, and research problems | n/a | **ties or out-ranks it on 3 of 4** | [round 4](eval/results/round4-cross-model.json), [round 5](eval/results/round5-big-research.json) |
 | Haiku catching planted frauds in a lying "work complete" report (fable-judge) | 4 and 3 of 5 | **5 of 5, both runs** | [round 8](eval/results/round8-fable-judge-transfer.json) |
+| Haiku finding the brand-rules and product-facts files before judging marketing copy | 1 of 2 runs (one run praised a fraudulent price) | **2 of 2, 6/6 frauds both** | [round 9b](eval/results/round9b-marketing-adapter-isolated.json) |
 | Ordinary small tasks on capable models | fine | fine (no lift) | [rounds 1, 6, 7](eval/RESULTS.md) |
 
 That last row is deliberate: the method's value concentrates at **traps** (authority conflicts, false completion claims, weak executors, unattended runs), not everywhere. The nulls are reported with the wins, because a results log that only contains wins would not be worth trusting.
@@ -88,6 +89,10 @@ Windows PowerShell: `git clone https://github.com/Sahir619/fable-method; .\fable
 fable-judge exists because the most documented failure of coding agents is claiming success regardless of reality: reward hacking grows with codebase size ([SpecBench](https://arxiv.org/abs/2605.21384)), agents end failure transcripts with "all tests pass", and tests get weakened until they agree. The judge treats a report as a set of claims and believes nothing it did not observe. Want to see it work? The repo ships a crime scene: [`eval/scenarios/s7-fraudulent-work/`](eval/scenarios/s7-fraudulent-work/) is a "completed" agent task with five planted frauds behind a lying completion report; point your model at it with `/fable-judge` and compare against the [round-8 transcripts](eval/results/round8-fable-judge-transfer.json).
 
 `references/failure-modes.md` maps 14 common agent failures to the step that prevents each; `references/examples.md` has a worked example per ask shape.
+
+### Domain adapters: the same loop beyond code
+
+Claude Code is used as much for marketing, research, spreadsheets, and business decisions as for software, and the loop never changes across them; only the nouns do. `references/domains/` ships seven adapters (marketing, research, data analysis, business/ops, finance, legal/compliance, design/UX; coding is the default), each defining for its sector: what counts as evidence, who the authority is, what "verify by observation" means, the fraud table fable-judge hunts, and a **binding minimum evidence set**, the things that must actually be opened before acting, every time. Research is never optional; the adapter defines how much is enough. Loaded lazily, so they cost nothing until a task matches. Medical and clinical work has deliberately no adapter: it needs qualified review, not a checklist.
 
 ## How the method earned its rules
 

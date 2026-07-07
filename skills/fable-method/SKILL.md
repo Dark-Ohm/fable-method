@@ -17,7 +17,9 @@ A mid-tier model that follows this loop beats a stronger model that free-styles:
 /fable-method report       rewrite the answer you were about to send per Step 6
 ```
 
-Deeper material loads on demand: `references/failure-modes.md` (symptom to step map for 14 common agent failures), `references/examples.md` (full worked examples for every ask shape).
+Deeper material loads on demand: `references/failure-modes.md` (symptom to step map for 14 common agent failures), `references/examples.md` (full worked examples for every ask shape), `references/domains/` (domain adapters, see below).
+
+**Domain adapters.** Coding is the default domain. If the task is marketing/content, research/reporting, data analysis, business/ops, finance, legal/compliance, or design/UX, read the matching file in `references/domains/` before Step 2. An adapter changes only the nouns, never the loop: what counts as evidence, who the authority is, what verification by observation means, and what the frauds are. Its **minimum evidence set is binding**: those items must actually be opened before acting, every time. Research is never optional; the adapter defines how much is enough. Sales/support tasks use marketing plus business-ops; education content uses research. Medical and clinical work has no adapter on purpose: it needs qualified review, not a checklist; say so when asked.
 
 **Triviality gate (run first).** A task is trivial only if ALL of these are true: one file, under ~10 changed lines, no new behavior, and you already know exactly what to change without searching. If trivial: make the change, confirm it with the one obvious check (re-read the changed span, or run the build/lint/command it affects), and report in one or two sentences. Everything else, and anything you are unsure about, gets the full loop.
 
