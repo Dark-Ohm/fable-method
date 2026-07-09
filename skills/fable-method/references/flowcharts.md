@@ -40,7 +40,8 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    S["Domain adapter loaded?<br/>Open its minimum evidence set first"] --> B1["Fire batch 1: all independent<br/>lookups in ONE parallel message"]
+    O["ORIENT: enumerate what exists.<br/>List the directory, glob the project,<br/>before reading anything specific"] --> S["Domain adapter loaded?<br/>Open its minimum evidence set first"]
+    S --> B1["Round 1: independent, expensive lookups<br/>(web, docs, subagents, many files)<br/>in ONE parallel batch.<br/>A few small local reads may chain<br/>when each shapes the next"]
     B1 --> N1{"Did anything contradict<br/>your expectation?"}
     N1 -->|yes| SUR["SURPRISE: state it to the user"]
     SUR --> R{"What does it change?"}
@@ -48,10 +49,10 @@ flowchart TD
     R -->|"what the user is asking"| U0["Go back to Step 0"]
     R -->|neither| CONT["Report it and continue"]
     N1 -->|no| N2{"Do you still lack evidence<br/>that would change your action?"}
-    N2 -->|yes| B2["Batch 2, the follow-up"]
+    N2 -->|yes| B2["Round 2, the follow-up"]
     N2 -->|no| DONE["Stop gathering. More research<br/>cannot change the action"]
     B2 --> N3{"Still missing something decisive?"}
-    N3 -->|"yes, and you can state why"| B3["Batch 3, with the stated reason"]
+    N3 -->|"yes, and you can state why"| B3["Round 3, with the stated reason"]
     N3 -->|no| DONE
 ```
 
@@ -116,3 +117,7 @@ flowchart TD
 ## Reading these as a model
 
 Follow the arrows literally; a diamond is a decision you must actually make, not narrative. When a box names an artifact (the INTENT line, the plan artifact, the caveat list), producing it is not optional. When a box says STOP, stop.
+
+## Provenance
+
+These charts began as introspection and were then checked against observed behavior: bare Fable 5 agents run on real problems with their full tool-call transcripts extracted (eval round 10). The observation validated the core paths (spec read before any edit, twin bug found via the README, verification of every mode, assumption stated on ambiguity) and corrected the charts in three places: the ORIENT box at the start of evidence gathering, the expensive-vs-chained nuance on parallelization, and the cleanup rule in the report step. Where introspection and observation disagreed, observation won.

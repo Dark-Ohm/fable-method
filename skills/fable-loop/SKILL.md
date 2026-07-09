@@ -25,7 +25,7 @@ This skill orchestrates the fable-method: read its SKILL.md first; its rules gov
 1. Work the checklist in the **main thread** (use the todo tool if the harness has one; tick items as they complete). Deciding and editing stay in the main thread; only searching and verifying fan out.
 2. Every edit follows method Step 4: intent gate before behavior changes, smallest correct change, precise edits, never destroy without looking.
 3. Independent mechanical items (same change across many files, isolated file generation) may fan out to parallel subagents, in one message, with worktree isolation if they could touch the same files.
-4. A surprise mid-execution re-routes per method Step 2 rule 6: say it, then update the plan or go back to Stage 1. Never force the plan through a surprise.
+4. A surprise mid-execution re-routes per method Step 2 rule 7: say it, then update the plan or go back to Stage 1. Never force the plan through a surprise.
 
 ## Stage 3 - VERIFY (adversarially)
 

@@ -107,6 +107,19 @@ The method gained **domain adapters** (`references/domains/`): per-sector defini
 
 The adapter's measured contribution is reliability of evidence discovery: bare Haiku checks the sources when it happens to explore (a coin flip at n=2); the judge with the adapter's binding minimum evidence set found and used both files in every run. The bare-run-2 failure is the marketing version of verification theater: a confident quality opinion formed without ever locating the ground truth, down to endorsing the wrong price. n=2 per cell; directional, not statistical.
 
+## Round 10 - observation study: the flowcharts vs the real thing (2026-07-09)
+
+The method's flowcharts (`references/flowcharts.md`) began as introspection: the model describing how it works. Introspection is a claim, so it was tested: two bare Fable 5 agents (no method, no instructions about approach) ran real problems, and their full tool-call transcripts were extracted as behavioral ground truth. Raw sequences and reports: [results/round10-observed-traces.json](results/round10-observed-traces.json)
+
+**Validated by observation:** the minimum evidence set read in full before any edit (code, then check, then spec, exactly the intent gate's inputs); the twin bug discovered via the README and fixed in both functions; every mode of the new feature executed with outputs inspected; the ambiguous ask resolved with a stated, reversible assumption; clean outcome-first reports.
+
+**Three corrections, where observation beat introspection:**
+1. **Orient first.** Both traces opened with a full project glob before reading anything specific. The charts started at "gather evidence"; the real behavior starts one step earlier. Now Step 2 rule 1.
+2. **Parallelization was overstated.** The method said all lookups go in one parallel batch; the observed agent chained three small local reads because each shaped the next. The rule now distinguishes independent, expensive lookups (batch) from adaptive local chains.
+3. **Cleanup before reporting was real but unwritten.** The export agent deleted its own test artifacts and disclosed the cleanup. The judge already hunted debris as fraud; the method now tells the worker to prevent it (Step 6).
+
+Method version: these changes plus the round-9 adapters constitute v1.1.x; where introspection and observation disagreed, observation won.
+
 ## Standing limitations
 
 Small n throughout (1-4 runs per cell), LLM judges (blind where multiple outputs are compared, but built on the same frontier model that appears as a baseline), synthetic fixtures, research ground truth only as current as its run date. This log exists so method edits are tested, not so anyone mistakes it for a benchmark.
